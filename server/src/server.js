@@ -22,21 +22,31 @@ const app = express();
 app.use(helmet());
 // CLIENT_URL: comma-separated list. Each entry can be a literal URL OR a wildcard
 // pattern like "https://*.vercel.app" (covers production + branch + deploy previews).
-const allowedPatterns = env.clientUrl.split(',').map((s) => s.trim()).filter(Boolean);
+const allowedPatterns = env.clientUrl
+  .split(',')
+  .map((s) => s.trim().replace(/\/$/, '')) // strip trailing slash
+  .filter(Boolean);
+
+console.log('[cors] allowed patterns:', allowedPatterns);
 
 function originAllowed(origin) {
   if (!origin) return true; // server-to-server / curl / health check
+  const o = origin.replace(/\/$/, '');
   return allowedPatterns.some((pat) => {
-    if (!pat.includes('*')) return pat === origin;
+    if (!pat.includes('*')) return pat === o;
     // Convert wildcard to regex: escape, then turn \* into .+
     const re = new RegExp('^' + pat.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.+') + '$');
-    return re.test(origin);
+    return re.test(o);
   });
 }
 
 app.use(
   cors({
-    origin: (origin, cb) => cb(null, originAllowed(origin)),
+    origin: (origin, cb) => {
+      const ok = originAllowed(origin);
+      if (!ok) console.warn('[cors] REJECTED origin:', origin);
+      cb(null, ok);
+    },
     credentials: true,
   })
 );
