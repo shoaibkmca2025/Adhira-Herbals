@@ -20,14 +20,23 @@ import adminRoutes from './routes/adminRoutes.js';
 const app = express();
 
 app.use(helmet());
-// CLIENT_URL can be a single URL or a comma-separated list (for multiple frontends/previews)
-const allowedOrigins = env.clientUrl.split(',').map((s) => s.trim()).filter(Boolean);
+// CLIENT_URL: comma-separated list. Each entry can be a literal URL OR a wildcard
+// pattern like "https://*.vercel.app" (covers production + branch + deploy previews).
+const allowedPatterns = env.clientUrl.split(',').map((s) => s.trim()).filter(Boolean);
+
+function originAllowed(origin) {
+  if (!origin) return true; // server-to-server / curl / health check
+  return allowedPatterns.some((pat) => {
+    if (!pat.includes('*')) return pat === origin;
+    // Convert wildcard to regex: escape, then turn \* into .+
+    const re = new RegExp('^' + pat.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.+') + '$');
+    return re.test(origin);
+  });
+}
+
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error(`CORS blocked: ${origin}`));
-    },
+    origin: (origin, cb) => cb(null, originAllowed(origin)),
     credentials: true,
   })
 );
