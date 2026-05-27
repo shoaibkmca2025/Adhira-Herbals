@@ -15,18 +15,7 @@ const products = [
     price: 1990, // INR
     compareAtPrice: 2299,
     images: [
-      {
-        url: 'https://images.unsplash.com/photo-1615484477778-ca3b77940c25?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Bowl of moringa powder',
-      },
-      {
-        url: 'https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Moringa drink',
-      },
-      {
-        url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Moringa powder mound',
-      },
+      { url: '/images/adhira-pouch.jpg', alt: 'Adhira Herbals organic moringa powder pouch' },
     ],
     description:
       'Known in Ayurveda as Shigru, our shade-dried Moringa preserves the delicate cellular structure of the leaves for maximum nutrient retention.',
@@ -65,10 +54,7 @@ const products = [
     price: 2490,
     compareAtPrice: 2799,
     images: [
-      {
-        url: 'https://images.unsplash.com/photo-1611073761666-3e3eaf75bef2?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Ashwagandha tincture',
-      },
+      { url: '/images/moringa-leaves.jpg', alt: 'Ashwagandha botanical' },
     ],
     description: 'Premium KSM-66 ashwagandha root extract for stress, sleep, and recovery.',
     longDescription:
@@ -97,10 +83,7 @@ const products = [
     category: 'immunity',
     price: 2190,
     images: [
-      {
-        url: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Golden turmeric blend',
-      },
+      { url: '/images/moringa-spoon.jpg', alt: 'Golden turmeric blend' },
     ],
     description: 'High-curcumin turmeric paired with black pepper and ginger for maximum bioavailability.',
     longDescription:
@@ -129,10 +112,7 @@ const products = [
     category: 'digestion',
     price: 1690,
     images: [
-      {
-        url: 'https://images.unsplash.com/photo-1599909533675-3cf68f9d5b35?auto=format&fit=crop&w=1200&q=80',
-        alt: 'Triphala powder and fruits',
-      },
+      { url: '/images/moringa-bowl.jpg', alt: 'Triphala powder' },
     ],
     description: 'The classic three-fruit blend for gentle daily digestion and cleansing.',
     longDescription:

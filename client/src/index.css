@@ -9,11 +9,15 @@
   body {
     font-family: 'Inter', system-ui, sans-serif;
     color: #162E21;
+    background: #FAF4E6;
   }
   h1, h2, h3, h4 {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 500;
     letter-spacing: -0.01em;
+  }
+  em {
+    font-style: italic;
   }
 }
 
@@ -33,6 +37,12 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-600/30
            text-forest-700 px-6 py-3 text-sm font-medium tracking-wide
            hover:bg-forest-600/5 transition;
+  }
+
+  .btn-mustard {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-mustard-400 text-forest-800
+           px-6 py-3 text-sm font-medium tracking-wide
+           hover:bg-mustard-500 active:scale-[0.98] transition;
   }
 
   .btn-ghost {
@@ -57,5 +67,14 @@
   }
   .chip-off {
     @apply border border-forest-600/20 text-forest-700 hover:bg-cream-200;
+  }
+
+  .section-label {
+    @apply text-[11px] uppercase tracking-wider-3 text-forest-600 font-semibold;
+  }
+
+  .pill-badge {
+    @apply inline-flex items-center gap-2 rounded-full bg-cream-50 border border-forest-600/10
+           px-4 py-1.5 text-sm text-forest-700 shadow-sm;
   }
 }

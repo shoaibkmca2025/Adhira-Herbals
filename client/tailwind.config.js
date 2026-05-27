@@ -4,13 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Cream/parchment background from screenshots
         cream: {
-          50: '#FCF8F1',
-          100: '#FAF3E8',
-          200: '#F4E9D7',
+          50: '#FCF8EF',
+          100: '#FAF4E6',
+          200: '#F1E9D6',
+          300: '#E8DDC5',
         },
-        // Forest green primary
         forest: {
           50: '#EAF1EC',
           100: '#C9DAD0',
@@ -19,14 +18,13 @@ export default {
           600: '#1F3D2C',
           700: '#162E21',
           800: '#0E1F16',
+          900: '#0A1810',
         },
-        // Soft peach accent panels
         blush: {
           100: '#FDEEDF',
           200: '#FBE5D6',
           300: '#F6D1B7',
         },
-        // Warm earth dark for footer
         earth: {
           900: '#1A1815',
           800: '#26221E',
@@ -35,6 +33,11 @@ export default {
         gold: {
           400: '#D8B26A',
           500: '#C99B4D',
+          600: '#B58938',
+        },
+        mustard: {
+          400: '#D9A84A',
+          500: '#C99033',
         },
       },
       fontFamily: {
@@ -43,9 +46,14 @@ export default {
       },
       boxShadow: {
         card: '0 6px 24px -8px rgba(31, 61, 44, 0.12)',
+        float: '0 20px 50px -20px rgba(22, 46, 33, 0.35)',
       },
       letterSpacing: {
         'wider-2': '0.18em',
+        'wider-3': '0.24em',
+      },
+      backgroundImage: {
+        'forest-gradient': 'linear-gradient(135deg, #1F3D2C 0%, #2D5340 60%, #3F6B52 100%)',
       },
     },
   },

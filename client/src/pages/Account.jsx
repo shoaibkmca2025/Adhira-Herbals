@@ -69,25 +69,62 @@ function OrdersTab() {
       </div>
     );
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {orders.map((o) => (
-        <div key={o._id} className="bg-cream-50/80 border border-forest-600/10 rounded-xl p-5">
-          <div className="flex items-center justify-between text-sm">
+        <div key={o._id} className="bg-cream-50/80 border border-forest-600/10 rounded-xl overflow-hidden">
+          {/* Header row */}
+          <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-forest-600/10 bg-cream-200/40">
             <div>
               <div className="font-medium text-forest-700">{o.orderNumber}</div>
               <div className="text-xs text-forest-700/60">
-                {new Date(o.createdAt).toLocaleDateString()} · {o.items.length} item{o.items.length > 1 ? 's' : ''}
+                {new Date(o.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {' · '}{o.items.length} item{o.items.length > 1 ? 's' : ''}
               </div>
             </div>
             <div className="text-right">
-              <div className="font-medium">{formatPrice(o.total)}</div>
-              <span className={classNames(
-                'inline-block mt-1 text-[10px] uppercase tracking-wider-2 font-semibold px-2 py-0.5 rounded-full',
-                o.status === 'delivered' ? 'bg-forest-100 text-forest-700' :
-                o.status === 'cancelled' ? 'bg-red-50 text-red-700' :
-                'bg-blush-200 text-forest-700'
-              )}>{o.status}</span>
+              <div className="font-semibold text-forest-700">{formatPrice(o.total)}</div>
+              <span
+                className={classNames(
+                  'inline-block mt-1 text-[10px] uppercase tracking-wider-2 font-semibold px-2 py-0.5 rounded-full',
+                  o.status === 'delivered'
+                    ? 'bg-forest-100 text-forest-700'
+                    : o.status === 'cancelled'
+                    ? 'bg-red-50 text-red-700'
+                    : 'bg-blush-200 text-forest-700'
+                )}
+              >
+                {o.status}
+              </span>
             </div>
+          </div>
+
+          {/* Items with images */}
+          <ul className="divide-y divide-forest-600/10">
+            {o.items.map((it, idx) => (
+              <li key={idx} className="px-5 py-3 flex items-center gap-4">
+                <div className="w-14 h-14 rounded-lg bg-cream-200 overflow-hidden shrink-0">
+                  {it.image ? (
+                    <img src={it.image} alt={it.name} className="w-full h-full object-cover" />
+                  ) : null}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium text-forest-700 truncate">{it.name}</div>
+                  <div className="text-xs text-forest-700/60">
+                    {it.variantLabel || 'Standard'} · Qty {it.quantity}
+                  </div>
+                </div>
+                <div className="text-sm font-medium text-forest-700 shrink-0">
+                  {formatPrice(it.unitPrice * it.quantity)}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Footer: payment info */}
+          <div className="px-5 py-3 text-xs text-forest-700/60 flex flex-wrap gap-4 bg-cream-200/30 border-t border-forest-600/10">
+            <span>Payment: <b className="text-forest-700">{(o.paymentMethod || '').toUpperCase()}</b></span>
+            <span>· Status: <b className="text-forest-700">{o.paymentStatus}</b></span>
+            {o.shippingMethod && <span>· Shipping: <b className="text-forest-700">{o.shippingMethod}</b></span>}
           </div>
         </div>
       ))}
